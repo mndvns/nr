@@ -1,0 +1,14 @@
+{
+  "name": "nr",
+  "version": "0.1.0",
+  "description": "A convenient node repl with history",
+  "keywords": ["repl", "history", "wrapper", "rlwrap"],
+  "main": "index.js",
+  "bin": "bin/nr",
+  "author": "Michael Andrew Vanasse <mail@mndvns.com>",
+  "license": "MIT",
+  "dependencies": {
+    "rc": "^0.5.1",
+    "commander": "^2.3.0"
+  }
+}

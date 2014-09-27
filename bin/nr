@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies
+ */
+
+var nr = require('..');
+var fs = require('fs');
+var rc = require('rc');
+var repl = require('repl');
+var program = require('commander');
+
+// config
+var conf = rc('nr', {
+  root: process.env.HOME + '/.nr',
+  global: false,
+  prompt: '> ',
+  noColors: false,
+  noTty: false,
+  noUndefined: false
+});
+
+// cli
+program
+  .version(require('../package.json').version)
+  .option('-r, --root <dir>', 'directory to store histories', conf.root)
+  .option('-g, --global', 'use global object instead of separate context')
+  .option('-p, --prompt <string>', 'the prompt for all I/O', conf.prompt)
+  .option('-n, --no-colors', 'disable colors')
+  .option('-t, --no-tty', 'don\'t treat ouput stream as tty')
+  .option('-i, --no-undefined', 'don\'t return value of a command if `undefined`');
+
+// parse args
+var args = program.parse(process.argv);
+
+// merge args and conf
+var options = merge(conf, args);
+
+// create root
+if (!fs.existsSync(conf.root)) fs.mkdir(conf.root);
+
+// initialize repl
+nr(repl, options);
+
+function merge(a,b){
+  var z = {};
+  for (var k in a) z[k] = a[k];
+  for (var k in b) z[k] = b[k];
+  return z;
+}
