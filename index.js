@@ -66,8 +66,3 @@ function nr(REPL, options){
     }
   };
 }
-
-function inspect(a){
-  if (typeof a === 'function') return console.log(a.toString());
-  console.log(util.inspect(a, {depth: 2, shoeHidden: true}));
-}
